@@ -1,9 +1,8 @@
-<script setup>
-
-</script>
-
 <template>
-    <LazyProfileCard :name="name" :address="addr" :description="description"></LazyProfileCard>
+    <div>
+        <LazyProfileCard :name="name" :address="addr" :description="description"></LazyProfileCard>
+        <LazyFilterCard></LazyFilterCard>
+    </div>
 </template>
 
 <script setup>

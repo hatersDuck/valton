@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div data-theme="night">
         <LazyTheHeader />
       <slot />
     </div>

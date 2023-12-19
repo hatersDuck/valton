@@ -1,10 +1,10 @@
 <template>
-    <div class="flex flex-col w-full md:w-1/3 bg-gray-800 rounded-xl px-5 py-5">
+    <div class="flex flex-col w-full bg-neutral/40 rounded-xl px-5 py-5">
         <div>
             <h1 class="text-white text-2xl font-bold">Filters</h1>
             <div class="mt-5">
                 <LazySelectBox :elements="priceFilters" />
-                <LazySelectBox :elements="typesFilters" class="mt-5"/>
+                <LazySelectBox :elements="typesFilters" class="mt-5" />
             </div>
         </div>
         <br>

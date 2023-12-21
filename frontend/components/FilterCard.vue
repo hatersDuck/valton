@@ -1,0 +1,35 @@
+<template>
+    <div class="flex flex-col w-full bg-neutral/40 rounded-xl px-5 py-5">
+        <div>
+            <h1 class="text-white text-2xl font-bold">Filters</h1>
+            <div class="mt-5">
+                <LazySelectBox :elements="priceFilters" />
+                <LazySelectBox :elements="typesFilters" class="mt-5" />
+            </div>
+        </div>
+        <br>
+        <div class="mt-5">
+            <h1 class="text-white text-2xl font-bold">Price range</h1>
+            <div class="flex gap-5 mt-5">
+                <input type="number"
+                    class="relative w-full rounded-xl bg-transparent text-white border-2 transition-all focus:border-sky-400 border-gray-500 py-2 pl-3 pr-10 text-left focus:outline-none"
+                    placeholder="From" />
+                <input type="number"
+                    class="relative w-full rounded-xl bg-transparent text-white border-2 transition-all focus:border-sky-400 border-gray-500 py-2 pl-3 pr-10 text-left focus:outline-none"
+                    placeholder="To" />
+            </div>
+        </div>
+    </div>
+</template>
+  
+<script setup>
+const priceFilters = [
+    'Price high to low',
+    'Price low to high',
+]
+
+const typesFilters = [
+    'All types'
+]
+</script>
+ 

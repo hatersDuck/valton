@@ -33,3 +33,13 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# ENV
+.*.env
+
+# dev html
+html_dev
+imgs
+
+#https-keys
+secrets

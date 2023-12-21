@@ -1,0 +1,8 @@
+;; Comment "InternalGratz"
+cell __gen_cell_comment_0ef5e38c2b0474b2151ac2ca3ddb52f27914ad198031d324b40358f33c780f93() asm "B{b5ee9c7241010101001300002200000000496e7465726e616c477261747afbd9d69a} B>boc PUSHREF";
+
+;; Comment "Internal Scam"
+cell __gen_cell_comment_f6ece7b942f50f26eecfe40c051fe1a014dcbaf9b82953c885c78ced129bc2a0() asm "B{b5ee9c7241010101001300002200000000496e7465726e616c205363616dd64f2ffd} B>boc PUSHREF";
+
+;; Comment "insurance pay"
+cell __gen_cell_comment_44bcb89a18a5f6b150e31af1ed68f8bc40a2cf1df200932f7c4cf3873bde7fd2() asm "B{b5ee9c7241010101001300002200000000696e737572616e636520706179fd72b8c4} B>boc PUSHREF";

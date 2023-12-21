@@ -1,0 +1,272 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_NftItem.headers.fc";
+#include "tact_NftItem.stdlib.fc";
+#include "tact_NftItem.constants.fc";
+#include "tact_NftItem.storage.fc";
+
+;;
+;; Contract NftItem functions
+;;
+
+(int, slice, slice, int, cell, slice, int) $NftItem$_contract_init(slice $collection_address, int $item_index, slice $owner, cell $individual_content, slice $editor) impure inline_ref {
+    var (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized)) = (false, null(), null(), null(), null(), null(), null());
+    $self'collection_address = $collection_address;
+    $self'item_index = $item_index;
+    $self'owner = $collection_address;
+    $self'individual_content = $individual_content;
+    $self'editor = $editor;
+    $self'is_initialized = false;
+    return ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized);
+}
+
+((int, slice, slice, int, cell, slice, int), (int, int, slice, slice, cell, slice)) $NftItem$_fun_get_nft_data((int, slice, slice, int, cell, slice, int) $self) impure inline_ref {
+    var (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized)) = $self;
+    tuple $b = __tact_string_builder_start_string();
+    slice $collectionData = __tact_slice_to_str($Cell$_fun_asSlice($self'individual_content));
+    $b~__tact_string_builder_append($collectionData);
+    $b~__tact_string_builder_append(__tact_int_to_string($self'item_index));
+    $b~__tact_string_builder_append(__gen_slice_string_2f62f0bd20aef2d2b17f109c6aba1bc3dd7a55db89e349f2659bf698f80ce9c6());
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), $GetNftData$_constructor_is_initialized_index_collection_address_owner_individual_content_editor($self'is_initialized, $self'item_index, $self'collection_address, $self'owner, __tact_string_builder_end($b), $self'editor));
+}
+
+((int, slice, slice, int, cell, slice, int), int) $NftItem$_fun_voted((int, slice, slice, int, cell, slice, int) $self) impure inline_ref {
+    var (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized)) = $self;
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), $self'voted_scam);
+}
+
+((int, slice, slice, int, cell, slice, int), slice) $NftItem$_fun_owner((int, slice, slice, int, cell, slice, int) $self) impure inline_ref {
+    var (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized)) = $self;
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), $self'owner);
+}
+
+;;
+;; Receivers of a Contract NftItem
+;;
+
+(((int, slice, slice, int, cell, slice, int)), ()) $NftItem$_internal_binary_Transfer((int, slice, slice, int, cell, slice, int) $self, (int, slice, slice, cell, int, slice) $msg) impure inline {
+    var ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized) = $self;
+    var ($msg'query_id, $msg'new_owner, $msg'response_destination, $msg'custom_payload, $msg'forward_amount, $msg'forward_payload) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    int $msgValue = $ctx'value;
+    int $tonBalanceBeforeMsg = (__tact_my_balance() - $msgValue);
+    int $storageFee = (30000000 - min($tonBalanceBeforeMsg, 30000000));
+    $msgValue = ($msgValue - ($storageFee + 30000000));
+    throw_unless(61686, ( __tact_slice_eq_bits($self'owner, $ctx'sender) ));
+    throw_unless(54178, ($msgValue > 0));
+    if (($self'is_initialized == false)) {
+        $self'is_initialized = true;
+        $self'owner = $msg'new_owner;
+        $global_send($SendParameters$_constructor_to_value_mode_body($msg'response_destination, 0, (2 + 64), $Excesses$_store_cell($Excesses$_constructor_query_id($msg'query_id))));
+    } else {
+        $self'owner = $msg'new_owner;
+        if (($msg'forward_amount > 0)) {
+            $global_send($SendParameters$_constructor_to_value_mode_bounce_body($msg'new_owner, $msg'forward_amount, 2, false, $OwnershipAssigned$_store_cell($OwnershipAssigned$_constructor_query_id_prev_owner_forward_payload($msg'query_id, $ctx'sender, $msg'forward_payload))));
+        }
+        $msgValue = ($msgValue - $Context$_fun_readForwardFee(($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw)));
+        if ((~ null?($msg'response_destination))) {
+            $global_send($SendParameters$_constructor_to_value_mode_body($msg'response_destination, ($msgValue - $msg'forward_amount), 1, $Excesses$_store_cell($Excesses$_constructor_query_id($msg'query_id))));
+        }
+    }
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), ());
+}
+
+(((int, slice, slice, int, cell, slice, int)), ()) $NftItem$_internal_binary_GetStaticData((int, slice, slice, int, cell, slice, int) $self, (int) $msg) impure inline {
+    var ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized) = $self;
+    var ($msg'query_id) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    $global_send($SendParameters$_constructor_to_value_mode_bounce_body($ctx'sender, 0, 64, true, $ReportStaticData$_store_cell($ReportStaticData$_constructor_query_id_index_id_collection($msg'query_id, $self'item_index, $self'collection_address))));
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), ());
+}
+
+(((int, slice, slice, int, cell, slice, int)), ()) $NftItem$_internal_binary_TransferEditorship((int, slice, slice, int, cell, slice, int) $self, (int, slice, slice, int, slice) $msg) impure inline {
+    var ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized) = $self;
+    var ($msg'query_id, $msg'new_editor, $msg'response_destination, $msg'forward_amount, $msg'forward_payload) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    int $msgValue = $ctx'value;
+    int $tonBalanceBeforeMsg = (__tact_my_balance() - $msgValue);
+    int $storageFee = (30000000 - min($tonBalanceBeforeMsg, 30000000));
+    $msgValue = ($msgValue - ($storageFee + 30000000));
+    throw_unless(61686, ( __tact_slice_eq_bits($self'editor, $ctx'sender) ));
+    throw_unless(54178, ($msgValue > 0));
+    $self'editor = $msg'new_editor;
+    if (($msg'forward_amount > 0)) {
+        $global_send($SendParameters$_constructor_to_value_mode_bounce_body($msg'new_editor, $msg'forward_amount, 2, false, $EditorshipAssigned$_store_cell($EditorshipAssigned$_constructor_query_id_prev_editor_forward_payload($msg'query_id, $self'editor, $msg'forward_payload))));
+    }
+    $msgValue = ($msgValue - $Context$_fun_readForwardFee(($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw)));
+    if ((~ null?($msg'response_destination))) {
+        $global_send($SendParameters$_constructor_to_value_mode_body($msg'response_destination, ($msgValue - $msg'forward_amount), 1, $Excesses$_store_cell($Excesses$_constructor_query_id($msg'query_id))));
+    }
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), ());
+}
+
+(((int, slice, slice, int, cell, slice, int)), ()) $NftItem$_internal_binary_UpdateNftContent((int, slice, slice, int, cell, slice, int) $self, (int, cell) $msg) impure inline {
+    var ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized) = $self;
+    var ($msg'query_id, $msg'new_content) = $msg;
+    var ($ctx'bounced, $ctx'sender, $ctx'value, $ctx'raw) = __tact_context_get();
+    throw_unless(61686, ( __tact_slice_eq_bits($self'editor, $ctx'sender) ));
+    $self'individual_content = $msg'new_content;
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), ());
+}
+
+(((int, slice, slice, int, cell, slice, int)), ()) $NftItem$_internal_binary_Deploy((int, slice, slice, int, cell, slice, int) $self, (int) $deploy) impure inline {
+    var ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized)~$NftItem$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), ());
+}
+
+((int, slice, slice, int, cell, slice, int), ()) $NftItem$_internal_text_8628c4d8f1d908aae93ce9ae491a53622a96b2c86f450c48c498e7612798fb16((int, slice, slice, int, cell, slice, int) $self) impure inline {
+    var ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized) = $self;
+    throw_unless(14384, ( __tact_slice_eq_bits($self'owner, __tact_context_get_sender()) ));
+    $global_send($SendParameters$_constructor_to_value_mode_body($self'collection_address, 0, (64 + 2), $InternalVoteScam$_store_cell($InternalVoteScam$_constructor_query_id_item_index_voted_owner(0, $self'item_index, $self'voted_scam, $self'owner))));
+    $self'voted_scam = (~ $self'voted_scam);
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), ());
+}
+
+(((int, slice, slice, int, cell, slice, int)), ()) $NftItem$_internal_binary_VoteScamClient((int, slice, slice, int, cell, slice, int) $self, (int) $vote) impure inline {
+    var ($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized) = $self;
+    var ($vote'query_id) = $vote;
+    throw_unless(14384, ( __tact_slice_eq_bits($self'owner, __tact_context_get_sender()) ));
+    $global_send($SendParameters$_constructor_to_value_mode_body($self'collection_address, 0, (64 + 2), $InternalVoteScam$_store_cell($InternalVoteScam$_constructor_query_id_item_index_voted_owner($vote'query_id, $self'item_index, $self'voted_scam, $self'owner))));
+    $self'voted_scam = (~ $self'voted_scam);
+    return (($self'voted_scam, $self'owner, $self'collection_address, $self'item_index, $self'individual_content, $self'editor, $self'is_initialized), ());
+}
+
+;;
+;; Get methods of a Contract NftItem
+;;
+
+_ %get_nft_data() method_id(102351) {
+    var self = $NftItem$_contract_load();
+    var res = self~$NftItem$_fun_get_nft_data();
+    return $GetNftData$_to_external(res);
+}
+
+_ %voted() method_id(98570) {
+    var self = $NftItem$_contract_load();
+    var res = self~$NftItem$_fun_voted();
+    return res;
+}
+
+_ %owner() method_id(83229) {
+    var self = $NftItem$_contract_load();
+    var res = self~$NftItem$_fun_owner();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128,
+        "org.ton.ownable"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmVmwKrLph2Fqjicvd8FaNx3TS8erSzJK6EwGjQFQX4Nxk";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract NftItem
+;;
+
+((int, slice, slice, int, cell, slice, int), int) $NftItem$_contract_router_internal((int, slice, slice, int, cell, slice, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive Transfer message
+    if (op == 1607220500) {
+        var msg = in_msg~$Transfer$_load();
+        self~$NftItem$_internal_binary_Transfer(msg);
+        return (self, true);
+    }
+    
+    ;; Receive GetStaticData message
+    if (op == 801842850) {
+        var msg = in_msg~$GetStaticData$_load();
+        self~$NftItem$_internal_binary_GetStaticData(msg);
+        return (self, true);
+    }
+    
+    ;; Receive TransferEditorship message
+    if (op == 4065598770) {
+        var msg = in_msg~$TransferEditorship$_load();
+        self~$NftItem$_internal_binary_TransferEditorship(msg);
+        return (self, true);
+    }
+    
+    ;; Receive UpdateNftContent message
+    if (op == 3748441372) {
+        var msg = in_msg~$UpdateNftContent$_load();
+        self~$NftItem$_internal_binary_UpdateNftContent(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$NftItem$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    ;; Receive VoteScamClient message
+    if (op == 1628042263) {
+        var msg = in_msg~$VoteScamClient$_load();
+        self~$NftItem$_internal_binary_VoteScamClient(msg);
+        return (self, true);
+    }
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "Vote" message
+        if (text_op == 0x8628c4d8f1d908aae93ce9ae491a53622a96b2c86f450c48c498e7612798fb16) {
+            self~$NftItem$_internal_text_8628c4d8f1d908aae93ce9ae491a53622a96b2c86f450c48c498e7612798fb16();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $NftItem$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$NftItem$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $NftItem$_contract_store(self);
+}

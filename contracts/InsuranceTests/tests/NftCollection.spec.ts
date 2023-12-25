@@ -1,5 +1,5 @@
 import { Blockchain, SandboxContract, SmartContract, TreasuryContract, } from '@ton-community/sandbox';
-import { toNano, beginCell, Address, Cell, contractAddress, SenderArguments, Slice} from 'ton-core';
+import { toNano, beginCell, Address, Cell, contractAddress, SenderArguments, Slice } from 'ton-core';
 
 
 import { NftCollection, InsuranceData, Transfer } from '../wrappers/NftCollection';
@@ -11,10 +11,10 @@ import '@ton-community/test-utils';
 describe('NftCollection', () => {
     const OFFCHAIN_CONTENT_PREFIX = 0x01;
     const COUNT_USERS: number = 10;
-    const string_first = "https://s.getgems.io/nft-staging/c/628f6ab8077060a7a8d52d63/";
+    const string_first = "https://meta.valton.fun/nft_collections/test_collection/meta_data.json";
     let blockchain: Blockchain;
 
-    
+
     let newContent = beginCell().storeInt(OFFCHAIN_CONTENT_PREFIX, 8).storeStringRefTail(string_first).endCell();
 
     let nftCollection: SandboxContract<NftCollection>;
@@ -33,7 +33,7 @@ describe('NftCollection', () => {
                 destination: deployer.address,
             })
         );
-
+        // Шаг 1
         let deployResult = await nftCollection.send(
             deployer.getSender(),
             {
@@ -44,6 +44,7 @@ describe('NftCollection', () => {
                 queryId: 0n,
             }
         );
+        // Шаг 2
         expect(deployResult.transactions).toHaveTransaction({
             from: deployer.address,
             to: nftCollection.address,
@@ -54,7 +55,7 @@ describe('NftCollection', () => {
         insurance = blockchain.openContract(
             await Insurance.fromInit(nftCollection.address)
         );
-        
+        // Шаг 3
         deployResult = await insurance.send(
             deployer.getSender(),
             {
@@ -65,13 +66,15 @@ describe('NftCollection', () => {
                 queryId: 0n,
             }
         );
-
+        // Шаг 4
         expect(deployResult.transactions).toHaveTransaction({
             from: deployer.address,
             to: insurance.address,
             deploy: true,
             success: true,
         });
+        // Шаг 5
+        expect((await nftCollection.getInsuranceAddress()).toString()).toEqual(insurance.address.toString())
     });
 
     it('should deploy', async () => {
@@ -80,9 +83,10 @@ describe('NftCollection', () => {
     });
 
 
-    it("Test", async () => {
-        console.log("Collection Address: " + nftCollection.address);
+    it("First", async () => {
         console.log("Insurance address: " + (insurance.address));
+        console.log("Insurance data: " + (await insurance.getInsuranceData()))
+        // Шаг 5
         expect((await nftCollection.getInsuranceAddress()).toString()).toEqual(insurance.address.toString())
     });
 
@@ -91,18 +95,18 @@ describe('NftCollection', () => {
         const deploy_result = await nftCollection.send(user.getSender(),
             {
                 value: toNano("1")
-            }, 
+            },
             "Mint"
         );
         expect(deploy_result.transactions).toHaveTransaction({
-                from: user.address,
-                to: nftCollection.address,
-                success: true
-            });
+            from: user.address,
+            to: nftCollection.address,
+            success: true
+        });
         expect((await nftCollection.getRoyaltyParams()).numerator).toEqual(350n);
     });
 
-    it ("should prohibit others from voting", async () => {
+    it("should prohibit others from voting", async () => {
         const user = await blockchain.treasury("0");
         const another_user = await blockchain.treasury("1");
 
@@ -110,7 +114,7 @@ describe('NftCollection', () => {
             user.getSender(),
             {
                 value: toNano("1")
-            }, 
+            },
             "Mint"
         );
         const address_mint_nft = contractAddress(0, await nftCollection.getGetNftItemInit(0n));
@@ -128,19 +132,21 @@ describe('NftCollection', () => {
         expect(before).toEqual(after)
     });
 
-    it ("should vote scam confirmed", async () => {
+    it("should vote scam confirmed", async () => {
         const user = await blockchain.treasury("confirmed");
+        // Шаг 1
         await nftCollection.send(
             user.getSender(),
             {
                 value: toNano("1")
-            }, 
+            },
             "Mint"
         );
         const address_mint_nft = contractAddress(0, await nftCollection.getGetNftItemInit(0n));
         const mint_nft = blockchain.openContract(NftItem.fromAddress(address_mint_nft));
-
-        let before_info  = await nftCollection.getScamInfo()
+        // Шаг 2
+        let before_info = await nftCollection.getScamInfo()
+        // Шаг 3
         await mint_nft.send(
             user.getSender(),
             {
@@ -148,11 +154,13 @@ describe('NftCollection', () => {
             },
             "Vote"
         );
+        // Шаг 4
         let after_info = await nftCollection.getScamInfo();
         expect(before_info.count_votes + 1n).toEqual(after_info.count_votes);
         expect(after_info.per_fill).toBeGreaterThan(before_info.per_fill);
-
-        before_info  = after_info;
+        // Шаг 5
+        before_info = after_info;
+        // Шаг 6
         await mint_nft.send(
             user.getSender(),
             {
@@ -160,28 +168,30 @@ describe('NftCollection', () => {
             },
             "Vote"
         );
-
+        // Шаг 7
         after_info = await nftCollection.getScamInfo();
         expect(before_info.count_votes - 1n).toEqual(after_info.count_votes);
         expect(after_info.per_fill).toBeLessThan(before_info.per_fill);
     });
 
-    it ("should collection scam confirmed",async () => {
+    it("should collection scam confirmed", async () => {
         const user = await blockchain.treasury("confirmed");
 
         for (let i = 0; i < COUNT_USERS; i++) {
+            // Шаг 1
+            const user = await blockchain.treasury("confirmed" + i.toString());
             await nftCollection.send(
                 user.getSender(),
                 {
                     value: toNano("1")
-                }, 
+                },
                 "Mint"
             );
-            
+
             const address_mint_nft = contractAddress(0, await nftCollection.getGetNftItemInit(BigInt(i)));
             const mint_nft = blockchain.openContract(NftItem.fromAddress(address_mint_nft))
-
-            const transact =  await mint_nft.send(
+            // Шаг 2
+            const transact = await mint_nft.send(
                 user.getSender(),
                 {
                     value: toNano("0.1")
@@ -189,10 +199,11 @@ describe('NftCollection', () => {
                 "Vote"
             );
         }
+        // Шаг 3
         expect((await nftCollection.getScamInfo()).scam).toEqual(true)
     });
 
-    it ("should insurance pay",async () => {
+    it("should insurance pay", async () => {
         const user = await blockchain.treasury("confirmed");
 
         await insurance.send(deployer.getSender(), {
@@ -204,12 +215,12 @@ describe('NftCollection', () => {
                 user.getSender(),
                 {
                     value: toNano("0.2")
-                }, 
+                },
                 "Mint"
             );
         }
 
-        for (let i = 0; i < COUNT_USERS; i++){
+        for (let i = 0; i < COUNT_USERS; i++) {
             const address_mint_nft = contractAddress(0, await nftCollection.getGetNftItemInit(BigInt(i)));
             const mint_nft = blockchain.openContract(NftItem.fromAddress(address_mint_nft))
 
@@ -225,11 +236,11 @@ describe('NftCollection', () => {
         for (let i = 0; i < COUNT_USERS; i++) {
             const address_mint_nft = contractAddress(0, await nftCollection.getGetNftItemInit(BigInt(i)));
             const mint_nft = blockchain.openContract(NftItem.fromAddress(address_mint_nft));
-
+            // Шаг 2
             const transact = await mint_nft.send(
                 user.getSender(), {
-                    value: toNano("0.2")
-                },
+                value: toNano("0.2")
+            },
                 {
                     $$type: "Transfer",
                     query_id: 0n,
@@ -240,32 +251,32 @@ describe('NftCollection', () => {
                     custom_payload: null
                 });
         }
-        
+        // Шаг 3
         expect(await insurance.getBalance()).toEqual(0n)
     });
 
-    it ("should withdraw all coins", async () => {
+    it("should withdraw all coins", async () => {
         await insurance.send(deployer.getSender(), {
             value: toNano("999999")
         }, null);
         expect(await insurance.getBalance()).toBeGreaterThan(0n);
-
+        // Шаг 1
         while (await insurance.getTimeLeft() >= 0) {
-           await new Promise(resolve => setTimeout(resolve, 5000));
+            await new Promise(resolve => setTimeout(resolve, 5000));
         }
 
         const before_balance_deployer = await deployer.getBalance();
-
-        const transact= await insurance.send(
+        // Шаг 2
+        const transact = await insurance.send(
             deployer.getSender(),
-            {value: toNano("0.05")},
+            { value: toNano("0.05") },
             "withdraw all"
         )
         const after_balance_deployer = await deployer.getBalance();
 
-
+        // Шаг 3
         expect(before_balance_deployer).toBeLessThan(after_balance_deployer);
         expect(await insurance.getBalance()).toEqual(0n);
         expect((await nftCollection.getScamInfo()).contract_end).toEqual(true);
-    }, 60*1000);
+    }, 60 * 1000);
 });

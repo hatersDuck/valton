@@ -1,7 +1,16 @@
 <template>
-    <div data-theme="night">
-        <LazyTheHeader />
-      <slot />
+    <div>
+        <slot />
     </div>
-  </template>
-  
+</template>
+
+<script>
+import { defineComponent } from "@vue/composition-api";
+
+export default defineComponent({
+    data() {
+        return {};
+    },
+    methods: {},
+});
+</script>

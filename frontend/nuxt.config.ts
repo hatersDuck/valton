@@ -2,12 +2,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   app:{
-    head: {
-      "script": [
-        {
-          src: "https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"
-        }]
-    }
   },
   modules: [
     '@nuxtjs/tailwindcss'

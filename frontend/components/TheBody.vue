@@ -1,7 +1,7 @@
 <template>
     <div
         class="text-6xl font-mono text-white m-96 text-center place-content-center"
-        v-if="!login"
+        v-if="login"
     >
         <p class="">Connect wallet</p>
     </div>

@@ -1,6 +1,6 @@
 <template>
-    <div class="w-46 rounded-2xl bg-neutral/50 shadow-xl">
-        <img :src="image" :alt="image" class="w-52 h-52 rounded-t-2xl object-cover"/>
+    <div class="w-48 rounded-2xl bg-neutral/50 shadow-xl">
+        <img :src="image" :alt="image" class="w-50 h-50 rounded-t-2xl object-cover"/>
         <div class="p-5 flex-col gap-3">
             <p class="text-neutral-400/80">{{ collection }}</p>
             <h2 class="card-title">{{ name }}</h2>

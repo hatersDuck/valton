@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs tabs-boxed flex md:gap-7 bg-neutral/75 h-16 items-center w-10/12">
+    <div class="tabs tabs-boxed flex md:gap-7 bg-neutral/75 h-16 items-center w-max">
         <a
             v-for="tab in tabs"
             :key="tab.name"

@@ -1,0 +1,746 @@
+PROGRAM{
+  DECLPROC __tact_verify_address
+  DECLPROC __tact_load_address
+  DECLPROC __tact_store_address
+  DECLPROC __tact_my_balance
+  DECLPROC __tact_not_null
+  DECLPROC __tact_context_get
+  DECLPROC __tact_context_get_sender
+  DECLPROC __tact_store_bool
+  DECLPROC __tact_slice_eq_bits
+  DECLPROC $Deploy$_load
+  DECLPROC $DeployOk$_store
+  DECLPROC $DeployOk$_store_cell
+  DECLPROC $InternalScam$_load
+  DECLPROC $InternalNewPer$_store
+  DECLPROC $InternalNewPer$_store_cell
+  DECLPROC $InternalPay$_load
+  DECLPROC $GratzWithdrawAll$_load
+  DECLPROC $Insurance$_store
+  DECLPROC $Insurance$_load
+  DECLPROC $StateInit$_not_null
+  DECLPROC $Context$_get_value
+  DECLPROC $InsuranceData$_to_external
+  DECLPROC $Insurance$init$_load
+  DECLPROC $Insurance$_contract_init
+  DECLPROC $Insurance$_contract_load
+  DECLPROC $Insurance$_contract_store
+  DECLPROC $global_send
+  DECLPROC $SendParameters$_constructor_bounce_to_value_mode_body_code_data
+  DECLPROC $SendParameters$_constructor_to_bounce_value_mode_body
+  DECLPROC $Insurance$_fun_gratz
+  DECLPROC $Insurance$_fun_per_to_break_now
+  DECLPROC $Insurance$_fun_time_left
+  DECLPROC $InsuranceData$_constructor_timestamp_end_nft_collection_per_to_break_scam_frozen_coins_count_pays
+  DECLPROC $Insurance$_fun_insurance_data
+  DECLPROC $Insurance$_fun_balance
+  DECLPROC $Insurance$_fun_forward
+  DECLPROC $Insurance$_fun_notify
+  DECLPROC $InternalNewPer$_constructor_query_id_new_per_to_break
+  DECLPROC $DeployOk$_constructor_queryId
+  DECLPROC %$Insurance$_internal_empty
+  DECLPROC $Insurance$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a
+  DECLPROC $Insurance$_internal_binary_GratzWithdrawAll
+  DECLPROC $Insurance$_internal_binary_InternalScam
+  DECLPROC $Insurance$_internal_binary_InternalPay
+  DECLPROC $Insurance$_internal_binary_Deploy
+  77731 DECLMETHOD %time_left
+  124876 DECLMETHOD %insurance_data
+  104128 DECLMETHOD %balance
+  113617 DECLMETHOD supported_interfaces
+  121275 DECLMETHOD get_abi_ipfs
+  115390 DECLMETHOD lazy_deployment_completed
+  DECLPROC $Insurance$_contract_router_internal
+  DECLPROC recv_internal
+  DECLGLOBVAR __tact_context
+  DECLGLOBVAR __tact_context_sender
+  DECLGLOBVAR __tact_context_sys
+  DECLGLOBVAR __tact_randomized
+  __tact_verify_address PROCINLINE:<{
+    DUP
+    SBITS
+    267 PUSHINT
+    EQUAL
+    136 THROWIFNOT
+    DUP
+    11 PLDU
+    DUP
+    1279 PUSHINT
+    EQUAL
+    137 THROWIF
+    10 PUSHPOW2
+    EQUAL
+    136 THROWIFNOT
+  }>
+  __tact_load_address PROCINLINE:<{
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+  }>
+  __tact_store_address PROCINLINE:<{
+    __tact_verify_address INLINECALLDICT
+    STSLICER
+  }>
+  __tact_my_balance PROCINLINE:<{
+    BALANCE
+    FIRST
+  }>
+  __tact_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+  }>
+  __tact_context_get PROCINLINE:<{
+    __tact_context GETGLOB
+    4 UNTUPLE
+  }>
+  __tact_context_get_sender PROCINLINE:<{
+    __tact_context_sender GETGLOB
+  }>
+  __tact_store_bool PROCINLINE:<{
+    SWAP
+    1 STI
+  }>
+  __tact_slice_eq_bits PROCINLINE:<{
+    SDEQ
+  }>
+  $Deploy$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    2490013878 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  $DeployOk$_store PROCINLINE:<{
+    2952335191 PUSHINT
+    ROT
+    32 STU
+    64 STU
+  }>
+  $DeployOk$_store_cell PROCINLINE:<{
+    NEWC
+    SWAP
+    $DeployOk$_store INLINECALLDICT
+    ENDC
+  }>
+  $InternalScam$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    3239608065 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    32 LDU
+    32 LDU
+    3 -ROLL
+  }>
+  $InternalNewPer$_store PROCINLINE:<{
+    241184145 PUSHINT
+    s0 s3 XCHG2
+    32 STU
+    64 STU
+    32 STU
+  }>
+  $InternalNewPer$_store_cell PROCINLINE:<{
+    NEWC
+    -ROT
+    $InternalNewPer$_store INLINECALLDICT
+    ENDC
+  }>
+  $InternalPay$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    4181564411 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    __tact_load_address INLINECALLDICT
+    s1 s2 XCHG
+  }>
+  $GratzWithdrawAll$_load PROCINLINE:<{
+    32 LDU
+    SWAP
+    2737621747 PUSHINT
+    EQUAL
+    129 THROWIFNOT
+    64 LDU
+    SWAP
+  }>
+  $Insurance$_store PROCINLINE:<{
+    s6 s5 XCHG2
+    __tact_store_address INLINECALLDICT
+    s1 s3 XCHG
+    64 STU
+    16 STU
+    1 STI
+    s1 s2 XCHG
+    32 STU
+    SWAP
+    STGRAMS
+  }>
+  $Insurance$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+    SWAP
+    64 LDU
+    16 LDU
+    1 LDI
+    32 LDU
+    LDGRAMS
+    6 -ROLL
+  }>
+  $StateInit$_not_null PROCINLINE:<{
+    DUP
+    ISNULL
+    128 THROWIF
+    2 UNTUPLE
+  }>
+  $Context$_get_value PROCINLINE:<{
+    s1 s3 XCHG
+    3 BLKDROP
+  }>
+  $InsuranceData$_to_external PROCINLINE:<{
+  }>
+  $Insurance$init$_load PROCINLINE:<{
+    __tact_load_address INLINECALLDICT
+  }>
+  $Insurance$_contract_init PROCREF:<{
+    FALSE
+    0 PUSHINT
+    DUP
+    NOW
+    10 ADDCONST
+    s0 s3 XCHG
+    500 PUSHINT
+    s1 s3 s3 XCHG3
+  }>
+  $Insurance$_contract_load PROCREF:<{
+    c4 PUSH
+    CTOS
+    LDREF
+    SWAP
+    __tact_context_sys SETGLOB
+    1 LDI
+    SWAP
+    IFJMP:<{
+      $Insurance$_load INLINECALLDICT
+      1 6 BLKDROP2
+    }>
+    MYADDR
+    11 PLDU
+    10 PUSHPOW2
+    EQUAL
+    137 THROWIFNOT
+    $Insurance$init$_load INLINECALLDICT
+    SWAP
+    ENDS
+    $Insurance$_contract_init INLINECALLDICT
+  }>
+  $Insurance$_contract_store PROCINLINE:<{
+    NEWC
+    __tact_context_sys GETGLOB
+    SWAP
+    STREF
+    TRUE
+    SWAP
+    1 STI
+    6 -ROLL
+    $Insurance$_store INLINECALLDICT
+    ENDC
+    c4 POP
+  }>
+  $global_send PROCREF:<{
+    NEWC
+    1 PUSHINT
+    SWAP
+    2 STI
+    s0 s7 XCHG2
+    __tact_store_bool INLINECALLDICT
+    0 PUSHINT
+    SWAP
+    3 STI
+    s0 s5 XCHG2
+    __tact_store_address INLINECALLDICT
+    s0 s3 XCHG2
+    STGRAMS
+    0 PUSHINT
+    SWAP
+    105 STI
+    s3 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+    }>ELSE<{
+      s4 PUSH
+      ISNULL
+      NOT
+    }>
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      NEWC
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null INLINECALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      s4 PUSH
+      ISNULL
+      NOT
+      IF:<{
+        TRUE
+        __tact_store_bool INLINECALLDICT
+        s0 s4 XCHG
+        __tact_not_null INLINECALLDICT
+        s0 s4 XCHG2
+        STREF
+      }>ELSE<{
+        s4 POP
+        s0 s3 XCHG
+        FALSE
+        __tact_store_bool INLINECALLDICT
+      }>
+      FALSE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      s0 s2 XCHG
+      ENDC
+      ROT
+      STREF
+    }>ELSE<{
+      s3 POP
+      s3 POP
+      SWAP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    OVER
+    ISNULL
+    NOT
+    IF:<{
+      TRUE
+      __tact_store_bool INLINECALLDICT
+      SWAP
+      __tact_not_null INLINECALLDICT
+      SWAP
+      STREF
+    }>ELSE<{
+      NIP
+      FALSE
+      __tact_store_bool INLINECALLDICT
+    }>
+    ENDC
+    SWAP
+    SENDRAWMSG
+  }>
+  $SendParameters$_constructor_bounce_to_value_mode_body_code_data PROCINLINE:<{
+  }>
+  $SendParameters$_constructor_to_bounce_value_mode_body PROCINLINE:<{
+    s3 s4 XCHG
+    PUSHNULL
+    PUSHNULL
+  }>
+  $Insurance$_fun_gratz PROCREF:<{
+    13808 PUSHINT
+    s3 PUSH
+    NOT
+    THROWANYIFNOT
+    44199 PUSHINT
+    s5 PUSH
+    NOW
+    SUB
+    1 LESSINT
+    THROWANYIFNOT
+    s2 PUSH
+    NOT
+    IF:<{
+      FALSE
+      0 PUSHINT
+      130 PUSHINT
+      B{b5ee9c7241010101001300002200000000496e7465726e616c477261747afbd9d69a} B>boc PUSHREF
+      s9 PUSH
+      4 -ROLL
+      $SendParameters$_constructor_to_bounce_value_mode_body INLINECALLDICT
+      $global_send INLINECALLDICT
+    }>
+  }>
+  $Insurance$_fun_per_to_break_now PROCREF:<{
+    10 PUSHINT
+    s5 PUSH
+    NOW
+    SUB
+    SUB
+    1000 PUSHINT
+    MUL
+    10 PUSHINT
+    DIV
+    500 PUSHINT
+    s1 s1 PUSH2
+    MUL
+    ROT
+    MUL
+    4000000 PUSHINT
+    DIV
+    ADD
+  }>
+  $Insurance$_fun_time_left PROCREF:<{
+    s4 PUSH
+    NOW
+    LESS
+    IFJMP:<{
+      -1 PUSHINT
+    }>
+    s4 PUSH
+    NOW
+    SUB
+  }>
+  $InsuranceData$_constructor_timestamp_end_nft_collection_per_to_break_scam_frozen_coins_count_pays PROCINLINE:<{
+    s4 s5 XCHG
+    ROT
+  }>
+  $Insurance$_fun_insurance_data PROCREF:<{
+    s5 s4 s3 PUSH3
+    s5 s4 s3 PUSH3
+    s10 s11 PUSH2
+    s5 s13 XCHG
+    s4 s12 XCHG
+    s3 s11 XCHG
+    s10 s9 s8 XCHG3
+    $Insurance$_fun_per_to_break_now INLINECALLDICT
+    s4 POP
+    s4 POP
+    s4 POP
+    s5 s7 XCHG
+    s4 s6 XCHG
+    s0 s0 s3 XCHG3
+    $InsuranceData$_constructor_timestamp_end_nft_collection_per_to_break_scam_frozen_coins_count_pays INLINECALLDICT
+    s7 s11 XCHG
+    5 6 REVERSE
+    s6 s8 XCHG
+  }>
+  $Insurance$_fun_balance PROCREF:<{
+    __tact_my_balance INLINECALLDICT
+  }>
+  $Insurance$_fun_forward PROCREF:<{
+    PUSHNULL
+    PUSHNULL
+    s2 PUSH
+    ISNULL
+    NOT
+    IF:<{
+      2DROP
+      $StateInit$_not_null INLINECALLDICT
+      SWAP
+    }>ELSE<{
+      s2 POP
+    }>
+    s2 s4 XCHG
+    0 PUSHINT
+    s0 s3 XCHG
+    s0 s4 XCHG
+    66 PUSHINT
+    s2 s3 XCHG2
+    $SendParameters$_constructor_bounce_to_value_mode_body_code_data INLINECALLDICT
+    $global_send INLINECALLDICT
+  }>
+  $Insurance$_fun_notify PROCINLINE:<{
+    __tact_context_get_sender INLINECALLDICT
+    SWAP
+    FALSE
+    PUSHNULL
+    $Insurance$_fun_forward INLINECALLDICT
+  }>
+  $InternalNewPer$_constructor_query_id_new_per_to_break PROCINLINE:<{
+  }>
+  $DeployOk$_constructor_queryId PROCINLINE:<{
+  }>
+  %$Insurance$_internal_empty PROCINLINE:<{
+    s2 PUSH
+    IF:<{
+      __tact_context_get INLINECALLDICT
+      $Context$_get_value INLINECALLDICT
+      ADD
+    }>
+  }>
+  $Insurance$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a PROCINLINE:<{
+    $Insurance$_fun_gratz INLINECALLDICT
+  }>
+  $Insurance$_internal_binary_GratzWithdrawAll PROCINLINE:<{
+    DROP
+    $Insurance$_fun_gratz INLINECALLDICT
+  }>
+  $Insurance$_internal_binary_InternalScam PROCINLINE:<{
+    45947 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s10 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+    6 3 BLKSWAP
+    $Insurance$_fun_per_to_break_now INLINECALLDICT
+    s4 POP
+    s0 s6 XCHG
+    1000 PUSHINT
+    MUL
+    s7 PUSH
+    DIV
+    s3 PUSH
+    GREATER
+    IF:<{
+      s6 PUSH
+      2 GTINT
+    }>ELSE<{
+      FALSE
+    }>
+    IF:<{
+      5 ROLL
+      $Insurance$_fun_time_left INLINECALLDICT
+      0 GTINT
+    }>ELSE<{
+      5 ROLL
+      FALSE
+    }>
+    IF:<{
+      3 BLKDROP
+      s4 POP
+      TRUE
+      __tact_context_get INLINECALLDICT
+      $Context$_get_value INLINECALLDICT
+      1 RSHIFT#
+      FALSE
+      2 PUSHINT
+      B{b5ee9c7241010101001300002200000000496e7465726e616c205363616dd64f2ffd} B>boc PUSHREF
+      s6 PUSH
+      s4 s4 s4 XCHG3
+      $SendParameters$_constructor_to_bounce_value_mode_body INLINECALLDICT
+      $global_send INLINECALLDICT
+      __tact_my_balance INLINECALLDICT
+    }>ELSE<{
+      s0 s6 XCHG
+      2 GTINT
+      IF:<{
+        5 ROLL
+        $Insurance$_fun_time_left INLINECALLDICT
+        0 GTINT
+      }>ELSE<{
+        5 ROLL
+        FALSE
+      }>
+      IF:<{
+        FALSE
+        0 PUSHINT
+        66 PUSHINT
+        s9 s6 XCPU
+        $InternalNewPer$_constructor_query_id_new_per_to_break INLINECALLDICT
+        $InternalNewPer$_store_cell INLINECALLDICT
+        s8 PUSH
+        s0 s4 XCHG
+        s10 s10 XCHG2
+        $SendParameters$_constructor_to_bounce_value_mode_body INLINECALLDICT
+        $global_send INLINECALLDICT
+      }>ELSE<{
+        1 6 BLKDROP2
+        $Insurance$_fun_time_left INLINECALLDICT
+        1 LESSINT
+        IF:<{
+          $Insurance$_fun_gratz INLINECALLDICT
+        }>
+        5 -ROLL
+      }>
+      s5 s1 s4 XCHG3
+      s3 s1 s3 XCHG3
+    }>
+    s3 s5 XCHG
+    s1 s4 s0 XCHG3
+  }>
+  $Insurance$_internal_binary_InternalPay PROCINLINE:<{
+    NIP
+    45947 PUSHINT
+    __tact_context_get_sender INLINECALLDICT
+    s8 s(-1) PUXC
+    __tact_slice_eq_bits INLINECALLDICT
+    THROWANYIFNOT
+    s1 s2 PUSH2
+    DIV
+    __tact_my_balance INLINECALLDICT
+    OVER
+    GREATER
+    IF:<{
+      FALSE
+      66 PUSHINT
+      B{b5ee9c7241010101001300002200000000696e737572616e636520706179fd72b8c4} B>boc PUSHREF
+      s2 s3 XCHG
+      $SendParameters$_constructor_to_bounce_value_mode_body INLINECALLDICT
+      $global_send INLINECALLDICT
+    }>ELSE<{
+      DROP
+      FALSE
+      0 PUSHINT
+      130 PUSHINT
+      B{b5ee9c7241010101001300002200000000696e737572616e636520706179fd72b8c4} B>boc PUSHREF
+      $SendParameters$_constructor_to_bounce_value_mode_body INLINECALLDICT
+      $global_send INLINECALLDICT
+    }>
+  }>
+  $Insurance$_internal_binary_Deploy PROCINLINE:<{
+    $DeployOk$_constructor_queryId INLINECALLDICT
+    $DeployOk$_store_cell INLINECALLDICT
+    $Insurance$_fun_notify INLINECALLDICT
+  }>
+  %time_left PROC:<{
+    $Insurance$_contract_load INLINECALLDICT
+    $Insurance$_fun_time_left INLINECALLDICT
+    6 1 BLKDROP2
+  }>
+  %insurance_data PROC:<{
+    $Insurance$_contract_load INLINECALLDICT
+    $Insurance$_fun_insurance_data INLINECALLDICT
+    6 6 BLKDROP2
+    $InsuranceData$_to_external INLINECALLDICT
+  }>
+  %balance PROC:<{
+    $Insurance$_contract_load INLINECALLDICT
+    $Insurance$_fun_balance INLINECALLDICT
+    6 1 BLKDROP2
+  }>
+  supported_interfaces PROC:<{
+    123515602279859691144772641439386770278 PUSHINT
+    209801025412363888721030803524359905849 PUSHINT
+    42980537499636128163026532310500881091 PUSHINT
+    209474421377847335869795010607481022628 PUSHINT
+  }>
+  get_abi_ipfs PROC:<{
+    x{697066733a2f2f516d5a3933794d4e43334673566a365362644533426a75345775616d536a68314b6757656235687358444c394b7a} PUSHSLICE
+  }>
+  lazy_deployment_completed PROC:<{
+    c4 PUSH
+    CTOS
+    1 LDI
+    SWAP
+  }>
+  $Insurance$_contract_router_internal PROCREF:<{
+    c2 SAVE
+    SAMEALTSAVE
+    SWAP
+    IFJMP:<{
+      DROP
+      TRUE
+    }>
+    0 PUSHINT
+    OVER
+    SBITS
+    31 GTINT
+    IF:<{
+      DROP
+      DUP
+      32 PLDU
+    }>
+    DUP
+    0 EQINT
+    s2 PUSH
+    SBITS
+    33 LESSINT
+    AND
+    IFJMP:<{
+      2DROP
+      %$Insurance$_internal_empty INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    2737621747 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $GratzWithdrawAll$_load INLINECALLDICT
+      NIP
+      $Insurance$_internal_binary_GratzWithdrawAll INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    3239608065 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $InternalScam$_load INLINECALLDICT
+      1 3 BLKDROP2
+      $Insurance$_internal_binary_InternalScam INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    4181564411 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $InternalPay$_load INLINECALLDICT
+      1 2 BLKDROP2
+      $Insurance$_internal_binary_InternalPay INLINECALLDICT
+      TRUE
+    }>
+    DUP
+    2490013878 PUSHINT
+    EQUAL
+    IFJMP:<{
+      DROP
+      $Deploy$_load INLINECALLDICT
+      NIP
+      $Insurance$_internal_binary_Deploy INLINECALLDICT
+      TRUE
+    }>
+    0 EQINT
+    IF:<{
+      HASHSU
+      36444242729032575060637673953708123039509959040849370188450484212211184560442 PUSHINT
+      EQUAL
+      IFJMP:<{
+        $Insurance$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a INLINECALLDICT
+        TRUE
+        RETALT
+      }>
+    }>ELSE<{
+      DROP
+    }>
+    FALSE
+  }>
+  recv_internal PROC:<{
+    SWAP
+    CTOS
+    4 LDU
+    SWAP
+    1 PUSHINT
+    AND
+    NEGATE
+    SWAP
+    LDMSGADDR
+    SWAP
+    __tact_verify_address INLINECALLDICT
+    s0 s4 s2 PUXCPU
+    s0 s3 XCHG
+    4 TUPLE
+    __tact_context SETGLOB
+    s0 s2 XCHG
+    __tact_context_sender SETGLOB
+    $Insurance$_contract_load INLINECALLDICT
+    2 6 BLKSWAP
+    $Insurance$_contract_router_internal INLINECALLDICT
+    130 THROWIFNOT
+    $Insurance$_contract_store INLINECALLDICT
+  }>
+}END>c

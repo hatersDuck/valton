@@ -1,0 +1,318 @@
+;;
+;; Type: StateInit
+;; TLB: _ code:^cell data:^cell = StateInit
+;;
+
+((cell, cell)) $StateInit$_not_null(tuple v) inline {
+    throw_if(128, null?(v));
+    var (cell vvv'code, cell vvv'data) = __tact_tuple_destroy_2(v);
+    return (vvv'code, vvv'data);
+}
+
+;;
+;; Type: SendParameters
+;; TLB: _ bounce:bool to:address value:int257 mode:int257 body:Maybe ^cell code:Maybe ^cell data:Maybe ^cell = SendParameters
+;;
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_bounce_to_value_mode_body_code_data(int bounce, slice to, int value, int mode, cell body, cell code, cell data) inline {
+    return (bounce, to, value, mode, body, code, data);
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode_body(slice to, int value, int mode, cell body) inline {
+    return (true, to, value, mode, body, null(), null());
+}
+
+((int, slice, int, int, cell, cell, cell)) $SendParameters$_constructor_to_value_mode_bounce_body(slice to, int value, int mode, int bounce, cell body) inline {
+    return (bounce, to, value, mode, body, null(), null());
+}
+
+;;
+;; Type: Deploy
+;; Header: 0x946a98b6
+;; TLB: deploy#946a98b6 queryId:uint64 = Deploy
+;;
+
+(slice, ((int))) $Deploy$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 2490013878);
+    var v'queryId = sc_0~load_uint(64);
+    return (sc_0, (v'queryId));
+}
+
+;;
+;; Type: DeployOk
+;; Header: 0xaff90f57
+;; TLB: deploy_ok#aff90f57 queryId:uint64 = DeployOk
+;;
+
+builder $DeployOk$_store(builder build_0, (int) v) inline {
+    var (v'queryId) = v;
+    build_0 = store_uint(build_0, 2952335191, 32);
+    build_0 = build_0.store_uint(v'queryId, 64);
+    return build_0;
+}
+
+cell $DeployOk$_store_cell((int) v) inline {
+    return $DeployOk$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $DeployOk$_constructor_queryId(int queryId) inline {
+    return (queryId);
+}
+
+;;
+;; Type: Transfer
+;; Header: 0x5fcc3d14
+;; TLB: transfer#5fcc3d14 query_id:uint64 new_owner:address response_destination:address custom_payload:Maybe ^cell forward_amount:coins forward_payload:remainder<slice> = Transfer
+;;
+
+(slice, ((int, slice, slice, cell, int, slice))) $Transfer$_load(slice sc_0) inline_ref {
+    throw_unless(129, sc_0~load_uint(32) == 1607220500);
+    var v'query_id = sc_0~load_uint(64);
+    var v'new_owner = sc_0~__tact_load_address();
+    var v'response_destination = sc_0~__tact_load_address();
+    var v'custom_payload = sc_0~load_int(1) ? sc_0~load_ref() : null();
+    var v'forward_amount = sc_0~load_coins();
+    var v'forward_payload = sc_0;
+    return (sc_0, (v'query_id, v'new_owner, v'response_destination, v'custom_payload, v'forward_amount, v'forward_payload));
+}
+
+;;
+;; Type: OwnershipAssigned
+;; Header: 0x05138d91
+;; TLB: ownership_assigned#05138d91 query_id:uint64 prev_owner:address forward_payload:remainder<slice> = OwnershipAssigned
+;;
+
+builder $OwnershipAssigned$_store(builder build_0, (int, slice, slice) v) inline {
+    var (v'query_id, v'prev_owner, v'forward_payload) = v;
+    build_0 = store_uint(build_0, 85167505, 32);
+    build_0 = build_0.store_uint(v'query_id, 64);
+    build_0 = __tact_store_address(build_0, v'prev_owner);
+    build_0 = build_0.store_slice(v'forward_payload);
+    return build_0;
+}
+
+cell $OwnershipAssigned$_store_cell((int, slice, slice) v) inline {
+    return $OwnershipAssigned$_store(begin_cell(), v).end_cell();
+}
+
+((int, slice, slice)) $OwnershipAssigned$_constructor_query_id_prev_owner_forward_payload(int query_id, slice prev_owner, slice forward_payload) inline {
+    return (query_id, prev_owner, forward_payload);
+}
+
+;;
+;; Type: Excesses
+;; Header: 0xd53276db
+;; TLB: excesses#d53276db query_id:uint64 = Excesses
+;;
+
+builder $Excesses$_store(builder build_0, (int) v) inline {
+    var (v'query_id) = v;
+    build_0 = store_uint(build_0, 3576854235, 32);
+    build_0 = build_0.store_uint(v'query_id, 64);
+    return build_0;
+}
+
+cell $Excesses$_store_cell((int) v) inline {
+    return $Excesses$_store(begin_cell(), v).end_cell();
+}
+
+((int)) $Excesses$_constructor_query_id(int query_id) inline {
+    return (query_id);
+}
+
+;;
+;; Type: GetStaticData
+;; Header: 0x2fcb26a2
+;; TLB: get_static_data#2fcb26a2 query_id:uint64 = GetStaticData
+;;
+
+(slice, ((int))) $GetStaticData$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 801842850);
+    var v'query_id = sc_0~load_uint(64);
+    return (sc_0, (v'query_id));
+}
+
+;;
+;; Type: TransferEditorship
+;; Header: 0xf2541d32
+;; TLB: transfer_editorship#f2541d32 query_id:uint64 new_editor:address response_destination:address forward_amount:coins forward_payload:remainder<slice> = TransferEditorship
+;;
+
+(slice, ((int, slice, slice, int, slice))) $TransferEditorship$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 4065598770);
+    var v'query_id = sc_0~load_uint(64);
+    var v'new_editor = sc_0~__tact_load_address();
+    var v'response_destination = sc_0~__tact_load_address();
+    var v'forward_amount = sc_0~load_coins();
+    var v'forward_payload = sc_0;
+    return (sc_0, (v'query_id, v'new_editor, v'response_destination, v'forward_amount, v'forward_payload));
+}
+
+;;
+;; Type: EditorshipAssigned
+;; Header: 0x183d47c6
+;; TLB: editorship_assigned#183d47c6 query_id:uint64 prev_editor:address forward_payload:remainder<slice> = EditorshipAssigned
+;;
+
+builder $EditorshipAssigned$_store(builder build_0, (int, slice, slice) v) inline {
+    var (v'query_id, v'prev_editor, v'forward_payload) = v;
+    build_0 = store_uint(build_0, 406669254, 32);
+    build_0 = build_0.store_uint(v'query_id, 64);
+    build_0 = __tact_store_address(build_0, v'prev_editor);
+    build_0 = build_0.store_slice(v'forward_payload);
+    return build_0;
+}
+
+cell $EditorshipAssigned$_store_cell((int, slice, slice) v) inline {
+    return $EditorshipAssigned$_store(begin_cell(), v).end_cell();
+}
+
+((int, slice, slice)) $EditorshipAssigned$_constructor_query_id_prev_editor_forward_payload(int query_id, slice prev_editor, slice forward_payload) inline {
+    return (query_id, prev_editor, forward_payload);
+}
+
+;;
+;; Type: UpdateNftContent
+;; Header: 0xdf6cad1c
+;; TLB: update_nft_content#df6cad1c query_id:uint64 new_content:^cell = UpdateNftContent
+;;
+
+(slice, ((int, cell))) $UpdateNftContent$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 3748441372);
+    var v'query_id = sc_0~load_uint(64);
+    var v'new_content = sc_0~load_ref();
+    return (sc_0, (v'query_id, v'new_content));
+}
+
+;;
+;; Type: ReportStaticData
+;; Header: 0x8b771735
+;; TLB: report_static_data#8b771735 query_id:uint64 index_id:uint32 collection:address = ReportStaticData
+;;
+
+builder $ReportStaticData$_store(builder build_0, (int, int, slice) v) inline {
+    var (v'query_id, v'index_id, v'collection) = v;
+    build_0 = store_uint(build_0, 2339837749, 32);
+    build_0 = build_0.store_uint(v'query_id, 64);
+    build_0 = build_0.store_uint(v'index_id, 32);
+    build_0 = __tact_store_address(build_0, v'collection);
+    return build_0;
+}
+
+cell $ReportStaticData$_store_cell((int, int, slice) v) inline {
+    return $ReportStaticData$_store(begin_cell(), v).end_cell();
+}
+
+((int, int, slice)) $ReportStaticData$_constructor_query_id_index_id_collection(int query_id, int index_id, slice collection) inline {
+    return (query_id, index_id, collection);
+}
+
+;;
+;; Type: GetNftData
+;; TLB: _ is_initialized:bool index:uint32 collection_address:address owner:address individual_content:^cell editor:address = GetNftData
+;;
+
+(int, int, slice, slice, cell, slice) $GetNftData$_to_external(((int, int, slice, slice, cell, slice)) v) inline {
+    var (v'is_initialized, v'index, v'collection_address, v'owner, v'individual_content, v'editor) = v; 
+    return (v'is_initialized, v'index, v'collection_address, v'owner, v'individual_content, v'editor);
+}
+
+((int, int, slice, slice, cell, slice)) $GetNftData$_constructor_is_initialized_index_collection_address_owner_individual_content_editor(int is_initialized, int index, slice collection_address, slice owner, cell individual_content, slice editor) inline {
+    return (is_initialized, index, collection_address, owner, individual_content, editor);
+}
+
+;;
+;; Type: InternalVoteScam
+;; Header: 0xdc3b16fd
+;; TLB: internal_vote_scam#dc3b16fd query_id:uint64 item_index:uint64 voted:bool owner:address = InternalVoteScam
+;;
+
+builder $InternalVoteScam$_store(builder build_0, (int, int, int, slice) v) inline {
+    var (v'query_id, v'item_index, v'voted, v'owner) = v;
+    build_0 = store_uint(build_0, 3694860029, 32);
+    build_0 = build_0.store_uint(v'query_id, 64);
+    build_0 = build_0.store_uint(v'item_index, 64);
+    build_0 = build_0.store_int(v'voted, 1);
+    build_0 = __tact_store_address(build_0, v'owner);
+    return build_0;
+}
+
+cell $InternalVoteScam$_store_cell((int, int, int, slice) v) inline {
+    return $InternalVoteScam$_store(begin_cell(), v).end_cell();
+}
+
+((int, int, int, slice)) $InternalVoteScam$_constructor_query_id_item_index_voted_owner(int query_id, int item_index, int voted, slice owner) inline {
+    return (query_id, item_index, voted, owner);
+}
+
+;;
+;; Type: VoteScamClient
+;; Header: 0x6109f417
+;; TLB: vote_scam_client#6109f417 query_id:uint64 = VoteScamClient
+;;
+
+(slice, ((int))) $VoteScamClient$_load(slice sc_0) inline {
+    throw_unless(129, sc_0~load_uint(32) == 1628042263);
+    var v'query_id = sc_0~load_uint(64);
+    return (sc_0, (v'query_id));
+}
+
+;;
+;; Type: NftItem
+;;
+
+builder $NftItem$_store(builder build_0, (int, slice, slice, int, cell, slice, int) v) inline {
+    var (v'voted_scam, v'owner, v'collection_address, v'item_index, v'individual_content, v'editor, v'is_initialized) = v;
+    build_0 = build_0.store_int(v'voted_scam, 1);
+    build_0 = __tact_store_address(build_0, v'owner);
+    build_0 = __tact_store_address(build_0, v'collection_address);
+    build_0 = build_0.store_uint(v'item_index, 32);
+    build_0 = build_0.store_ref(v'individual_content);
+    build_0 = __tact_store_address(build_0, v'editor);
+    build_0 = build_0.store_int(v'is_initialized, 1);
+    return build_0;
+}
+
+(slice, ((int, slice, slice, int, cell, slice, int))) $NftItem$_load(slice sc_0) inline {
+    var v'voted_scam = sc_0~load_int(1);
+    var v'owner = sc_0~__tact_load_address();
+    var v'collection_address = sc_0~__tact_load_address();
+    var v'item_index = sc_0~load_uint(32);
+    var v'individual_content = sc_0~load_ref();
+    var v'editor = sc_0~__tact_load_address();
+    var v'is_initialized = sc_0~load_int(1);
+    return (sc_0, (v'voted_scam, v'owner, v'collection_address, v'item_index, v'individual_content, v'editor, v'is_initialized));
+}
+
+(slice, ((slice, int, slice, cell, slice))) $NftItem$init$_load(slice sc_0) inline {
+    var v'collection_address = sc_0~__tact_load_address();
+    var v'item_index = sc_0~load_int(257);
+    var v'owner = sc_0~__tact_load_address();
+    var v'individual_content = sc_0~load_ref();
+    slice sc_1 = sc_0~load_ref().begin_parse();
+    var v'editor = sc_1~__tact_load_address();
+    return (sc_0, (v'collection_address, v'item_index, v'owner, v'individual_content, v'editor));
+}
+
+(int, slice, slice, int, cell, slice, int) $NftItem$_contract_load() impure inline_ref {
+    slice $sc = get_data().begin_parse();
+    __tact_context_sys = $sc~load_ref();
+    int $loaded = $sc~load_int(1);
+    if ($loaded) {
+        return $sc~$NftItem$_load();
+    } else {
+        ;; Allow only workchain deployments
+        throw_unless(137, my_address().preload_uint(11) == 1024);
+        (slice collection_address, int item_index, slice owner, cell individual_content, slice editor) = $sc~$NftItem$init$_load();
+        $sc.end_parse();
+        return $NftItem$_contract_init(collection_address, item_index, owner, individual_content, editor);
+    }
+}
+
+() $NftItem$_contract_store((int, slice, slice, int, cell, slice, int) v) impure inline {
+    builder b = begin_cell();
+    b = b.store_ref(__tact_context_sys);
+    b = b.store_int(true, 1);
+    b = $NftItem$_store(b, v);
+    set_data(b.end_cell());
+}

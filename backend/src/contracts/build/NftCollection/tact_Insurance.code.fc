@@ -1,0 +1,245 @@
+#pragma version =0.4.3;
+#pragma allow-post-modification;
+#pragma compute-asm-ltr;
+
+#include "tact_Insurance.headers.fc";
+#include "tact_Insurance.stdlib.fc";
+#include "tact_Insurance.constants.fc";
+#include "tact_Insurance.storage.fc";
+
+;;
+;; Contract Insurance functions
+;;
+
+(slice, int, int, int, int, int) $Insurance$_contract_init(slice $collection) impure inline_ref {
+    var (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)) = (null(), null(), null(), false, 0, 0);
+    $self'nft_collection = $collection;
+    $self'timestamp_end = (now() + 10);
+    $self'per_to_break = 500;
+    return ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins);
+}
+
+((slice, int, int, int, int, int), ()) $Insurance$_fun_gratz((slice, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)) = $self;
+    throw_unless(13808, (~ $self'scam));
+    throw_unless(44199, (($self'timestamp_end - now()) <= 0));
+    if ((~ $self'scam)) {
+        $global_send($SendParameters$_constructor_to_bounce_value_mode_body($self'nft_collection, false, 0, (128 + 2), __gen_cell_comment_0ef5e38c2b0474b2151ac2ca3ddb52f27914ad198031d324b40358f33c780f93()));
+    }
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), ());
+}
+
+((slice, int, int, int, int, int), int) $Insurance$_fun_per_to_break_now((slice, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)) = $self;
+    int $x = (((10 - ($self'timestamp_end - now())) * 1000) / 10);
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), (500 + ((($x * $x) * $x) / ((4 * 1000) * 1000))));
+}
+
+((slice, int, int, int, int, int), int) $Insurance$_fun_time_left((slice, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)) = $self;
+    if (($self'timestamp_end < now())) {
+        return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), (- 1));
+    }
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), ($self'timestamp_end - now()));
+}
+
+((slice, int, int, int, int, int), (slice, int, int, int, int, int)) $Insurance$_fun_insurance_data((slice, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)) = $self;
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), $InsuranceData$_constructor_timestamp_end_nft_collection_per_to_break_scam_frozen_coins_count_pays($self'timestamp_end, $self'nft_collection, ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_per_to_break_now(), $self'scam, $self'frozen_coins, $self'count_pays));
+}
+
+((slice, int, int, int, int, int), int) $Insurance$_fun_balance((slice, int, int, int, int, int) $self) impure inline_ref {
+    var (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)) = $self;
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), __tact_my_balance());
+}
+
+;;
+;; Receivers of a Contract Insurance
+;;
+
+(((slice, int, int, int, int, int)), ()) %$Insurance$_internal_empty((slice, int, int, int, int, int) $self) impure inline {
+    var ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins) = $self;
+    if ($self'scam) {
+        $self'frozen_coins = ($self'frozen_coins + $Context$_get_value(__tact_context_get()));
+    }
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), ());
+}
+
+((slice, int, int, int, int, int), ()) $Insurance$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a((slice, int, int, int, int, int) $self) impure inline {
+    var ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins) = $self;
+    ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_gratz();
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), ());
+}
+
+(((slice, int, int, int, int, int)), ()) $Insurance$_internal_binary_GratzWithdrawAll((slice, int, int, int, int, int) $self, (int) $wt) impure inline {
+    var ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins) = $self;
+    var ($wt'query_id) = $wt;
+    ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_gratz();
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), ());
+}
+
+(((slice, int, int, int, int, int)), ()) $Insurance$_internal_binary_InternalScam((slice, int, int, int, int, int) $self, (int, int, int) $scam) impure inline {
+    var ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins) = $self;
+    var ($scam'query_id, $scam'count_mint, $scam'count_votes) = $scam;
+    throw_unless(45947, ( __tact_slice_eq_bits($self'nft_collection, __tact_context_get_sender()) ));
+    $self'per_to_break = ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_per_to_break_now();
+    if (( (( (((($scam'count_votes * 1000) / $scam'count_mint) > $self'per_to_break)) ? (($scam'count_mint > 2)) : (false) )) ? ((($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_time_left() > 0)) : (false) )) {
+        $self'scam = true;
+        $self'count_pays = $scam'count_mint;
+        int $msgValue = ($Context$_get_value(__tact_context_get()) / 2);
+        $global_send($SendParameters$_constructor_to_bounce_value_mode_body($self'nft_collection, false, $msgValue, 2, __gen_cell_comment_f6ece7b942f50f26eecfe40c051fe1a014dcbaf9b82953c885c78ced129bc2a0()));
+        $self'frozen_coins = __tact_my_balance();
+    } elseif (( (($scam'count_mint > 2)) ? ((($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_time_left() > 0)) : (false) )) {
+        $global_send($SendParameters$_constructor_to_bounce_value_mode_body($self'nft_collection, false, 0, (64 + 2), $InternalNewPer$_store_cell($InternalNewPer$_constructor_query_id_new_per_to_break($scam'query_id, $self'per_to_break))));
+    } elseif ((($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_time_left() <= 0)) {
+        ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_gratz();
+    }
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), ());
+}
+
+(((slice, int, int, int, int, int)), ()) $Insurance$_internal_binary_InternalPay((slice, int, int, int, int, int) $self, (int, slice) $pay) impure inline {
+    var ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins) = $self;
+    var ($pay'query_id, $pay'prev_owner) = $pay;
+    throw_unless(45947, ( __tact_slice_eq_bits($self'nft_collection, __tact_context_get_sender()) ));
+    int $value_insurance = ($self'frozen_coins / $self'count_pays);
+    if ((__tact_my_balance() > $value_insurance)) {
+        $global_send($SendParameters$_constructor_to_bounce_value_mode_body($pay'prev_owner, false, $value_insurance, (64 + 2), __gen_cell_comment_44bcb89a18a5f6b150e31af1ed68f8bc40a2cf1df200932f7c4cf3873bde7fd2()));
+    } else {
+        $global_send($SendParameters$_constructor_to_bounce_value_mode_body($pay'prev_owner, false, 0, (128 + 2), __gen_cell_comment_44bcb89a18a5f6b150e31af1ed68f8bc40a2cf1df200932f7c4cf3873bde7fd2()));
+    }
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), ());
+}
+
+(((slice, int, int, int, int, int)), ()) $Insurance$_internal_binary_Deploy((slice, int, int, int, int, int) $self, (int) $deploy) impure inline {
+    var ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins) = $self;
+    var ($deploy'queryId) = $deploy;
+    ($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins)~$Insurance$_fun_notify($DeployOk$_store_cell($DeployOk$_constructor_queryId($deploy'queryId)));
+    return (($self'nft_collection, $self'timestamp_end, $self'per_to_break, $self'scam, $self'count_pays, $self'frozen_coins), ());
+}
+
+;;
+;; Get methods of a Contract Insurance
+;;
+
+_ %time_left() method_id(77731) {
+    var self = $Insurance$_contract_load();
+    var res = self~$Insurance$_fun_time_left();
+    return res;
+}
+
+_ %insurance_data() method_id(124876) {
+    var self = $Insurance$_contract_load();
+    var res = self~$Insurance$_fun_insurance_data();
+    return $InsuranceData$_to_external(res);
+}
+
+_ %balance() method_id(104128) {
+    var self = $Insurance$_contract_load();
+    var res = self~$Insurance$_fun_balance();
+    return res;
+}
+
+_ supported_interfaces() method_id {
+    return (
+        "org.ton.introspection.v0"H >> 128,
+        "org.ton.abi.ipfs.v0"H >> 128,
+        "org.ton.deploy.lazy.v0"H >> 128,
+        "org.ton.chain.workchain.v0"H >> 128
+    );
+}
+
+_ get_abi_ipfs() method_id {
+    return "ipfs://QmZ93yMNC3FsVj6SbdE3Bju4WuamSjh1KgWeb5hsXDL9Kz";
+}
+
+_ lazy_deployment_completed() method_id {
+    return get_data().begin_parse().load_int(1);
+}
+
+;;
+;; Routing of a Contract Insurance
+;;
+
+((slice, int, int, int, int, int), int) $Insurance$_contract_router_internal((slice, int, int, int, int, int) self, int msg_bounced, slice in_msg) impure inline_ref {
+    ;; Handle bounced messages
+    if (msg_bounced) {
+        return (self, true);
+    }
+    
+    ;; Parse incoming message
+    int op = 0;
+    if (slice_bits(in_msg) >= 32) {
+        op = in_msg.preload_uint(32);
+    }
+    
+    
+    ;; Receive empty message
+    if ((op == 0) & (slice_bits(in_msg) <= 32)) {
+        self~%$Insurance$_internal_empty();
+        return (self, true);
+    }
+    
+    ;; Receive GratzWithdrawAll message
+    if (op == 2737621747) {
+        var msg = in_msg~$GratzWithdrawAll$_load();
+        self~$Insurance$_internal_binary_GratzWithdrawAll(msg);
+        return (self, true);
+    }
+    
+    ;; Receive InternalScam message
+    if (op == 3239608065) {
+        var msg = in_msg~$InternalScam$_load();
+        self~$Insurance$_internal_binary_InternalScam(msg);
+        return (self, true);
+    }
+    
+    ;; Receive InternalPay message
+    if (op == 4181564411) {
+        var msg = in_msg~$InternalPay$_load();
+        self~$Insurance$_internal_binary_InternalPay(msg);
+        return (self, true);
+    }
+    
+    ;; Receive Deploy message
+    if (op == 2490013878) {
+        var msg = in_msg~$Deploy$_load();
+        self~$Insurance$_internal_binary_Deploy(msg);
+        return (self, true);
+    }
+    
+    ;; Text Receivers
+    if (op == 0) {
+        var text_op = slice_hash(in_msg);
+        
+        ;; Receive "withdraw all" message
+        if (text_op == 0x5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a) {
+            self~$Insurance$_internal_text_5092b5dce0715a57dd969f5fb5a6f93025a0b02eab329470ca2b365ca0d7e93a();
+            return (self, true);
+        }
+    }
+    
+    return (self, false);
+}
+
+() recv_internal(int msg_value, cell in_msg_cell, slice in_msg) impure {
+    
+    ;; Context
+    var cs = in_msg_cell.begin_parse();
+    var msg_flags = cs~load_uint(4);
+    var msg_bounced = -(msg_flags & 1);
+    slice msg_sender_addr = __tact_verify_address(cs~load_msg_addr());
+    __tact_context = (msg_bounced, msg_sender_addr, msg_value, cs);
+    __tact_context_sender = msg_sender_addr;
+    
+    ;; Load contract data
+    var self = $Insurance$_contract_load();
+    
+    ;; Handle operation
+    int handled = self~$Insurance$_contract_router_internal(msg_bounced, in_msg);
+    
+    ;; Throw if not handled
+    throw_unless(130, handled);
+    
+    ;; Persist state
+    $Insurance$_contract_store(self);
+}

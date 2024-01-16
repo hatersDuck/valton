@@ -1,0 +1,29 @@
+;; String "meta.json"
+slice __gen_slice_string_7ca4179185a84c879806ec30a1f5fa692451a7fb8dfcf32a967a2cb475822481() asm "B{b5ee9c7241010101000b0000126d6574612e6a736f6ebde57607} B>boc <s PUSHSLICE";
+
+;; Comment "Thanks for your collaboration!"
+cell __gen_cell_comment_c586061e0ce5d4248a1d7c8c0d99768a7f4e8cf6c5c8e15c6f789a4a88fe11f1() asm "B{b5ee9c72410101010024000044000000005468616e6b7320666f7220796f757220636f6c6c61626f726174696f6e21bd30de08} B>boc PUSHREF";
+
+;; Comment "Insurance contract end"
+cell __gen_cell_comment_d76844124c96c89c2b82ab2f10ee22fda9df93bacfda83ec1dfe6ebb015e511a() asm "B{b5ee9c7241010101001c00003400000000496e737572616e636520636f6e747261637420656e646c44531b} B>boc PUSHREF";
+
+;; Comment "The collection has already been recognized as a scam"
+cell __gen_cell_comment_fb045d3efb40147b78645dce700f8696820d15ed76902970d4ff9ff4fb759feb() asm "B{b5ee9c7241010101003a0000700000000054686520636f6c6c656374696f6e2068617320616c7265616479206265656e207265636f676e697a65642061732061207363616d978af466} B>boc PUSHREF";
+
+;; String "vote for "
+slice __gen_slice_string_7198750615955bd829698ed07fc7a62082f304e0697e639944bb22a50c59b554() asm "B{b5ee9c7241010101000b000012766f746520666f72200ff7a6ad} B>boc <s PUSHSLICE";
+
+;; String "no scam "
+slice __gen_slice_string_1a86e06487d0bbb871f50a876564a861b69ae622ab76f07ae0786beb188a1eef() asm "B{b5ee9c7241010101000a0000106e6f207363616d20473023de} B>boc <s PUSHSLICE";
+
+;; String "scam "
+slice __gen_slice_string_49abce146d0cf3a978a91fe86a90cda85f35bc03ffbe8288c914b3a519df5af7() asm "B{b5ee9c7241010101000700000a7363616d20c765949b} B>boc <s PUSHSLICE";
+
+;; String "accepted!"
+slice __gen_slice_string_b07280a7e1f654034c225463cacaa9fadc2a18ee11712454b45fd652dbd86789() asm "B{b5ee9c7241010101000b000012616363657074656421ebb07ac0} B>boc <s PUSHSLICE";
+
+;; Comment "Payload empty"
+cell __gen_cell_comment_533e8e6894e74272084217f80035738d33aae2b6840b0d860c1da493328c2bbd() asm "B{b5ee9c72410101010013000022000000005061796c6f616420656d707479cc776337} B>boc PUSHREF";
+
+;; Comment "Collection not scam"
+cell __gen_cell_comment_8d39dbb0b35226a2df5b1c42cbb3e44dbfdcb4d307e4281654908c3e1cd0c573() asm "B{b5ee9c7241010101001900002e00000000436f6c6c656374696f6e206e6f74207363616d29f68331} B>boc PUSHREF";
